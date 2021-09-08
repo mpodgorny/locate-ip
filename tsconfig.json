@@ -9,6 +9,9 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -18,7 +21,8 @@
     "baseUrl": "./src",
     "paths": {
       "services/*": ["./services/*"],
-      "components/*": ["./components/*"]
+      "components/*": ["./components/*"],
+      "containers/*": ["./containers/*"]
     }
   },
   "include": ["src"]
