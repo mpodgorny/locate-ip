@@ -1,0 +1,30 @@
+language: node_js
+node_js:
+  - 'stable'
+cache:
+  directories:
+    - node_modules
+script:
+  - yarn install
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $PERSONAL_TOKEN
+  keep_history: true
+  on:
+    branch: prod
+
+jobs:
+  include:
+    - stage: test
+      script: yarn test
+
+    - stage: deploy
+      script: yarn run build
+      if: branch = prod
+
+
+stages:
+  - test
+  - deploy
