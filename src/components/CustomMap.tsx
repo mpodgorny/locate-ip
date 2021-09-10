@@ -5,6 +5,7 @@ import L, { Map } from 'leaflet';
 import { makeStyles } from '@material-ui/core';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import { latLongType } from 'features/CurrentLocalSlice';
 
 // fix for react-leaflet issue #453
 const DefaultIcon = L.icon({
@@ -30,7 +31,9 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const CustomMap: React.FC = () => {
+type CustomMapProps = { latLong: latLongType };
+
+const CustomMap: React.FC<CustomMapProps> = ({ latLong }) => {
   const [mapInstance, setMapInstance] = useState<Map | null>(null);
   const classes = useStyles();
 
@@ -39,6 +42,12 @@ const CustomMap: React.FC = () => {
       mapInstance.invalidateSize();
     }
   }, [mapInstance]);
+
+  useEffect(() => {
+    if (latLong && mapInstance) {
+      mapInstance.panTo(latLong);
+    }
+  }, [latLong, mapInstance]);
 
   return (
     <div className={classes.mapWrapper}>
@@ -52,7 +61,7 @@ const CustomMap: React.FC = () => {
           attribution="&copy; Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL."
           url="https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png	"
         />
-        <Marker position={[51.505, -0.09]} />
+        {latLong && <Marker position={latLong} />}
       </MapContainer>
     </div>
   );
