@@ -1,7 +1,9 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import CustomCard from 'components/CustomCard';
-import CustomMap from 'components/CustomMap';
+import CurrentMap from 'features/CurrentMap';
+import CurrentLocal from 'features/CurrentLocal';
+
 const Layout: React.FC = () => {
   return (
     <Grid container>
@@ -11,18 +13,20 @@ const Layout: React.FC = () => {
       <Grid container item xs={12} md={9}>
         <Grid item xs={12} md={8}>
           <CustomCard title="Your location">
-            <CustomMap />
+            <CurrentMap />
           </CustomCard>
         </Grid>
         <Grid item xs={12} md={4}>
-          <CustomCard title="Information about your location" />
+          <CustomCard title="Information about your location">
+            <CurrentLocal />
+          </CustomCard>
         </Grid>
         <Grid item xs={12} md={12}>
           <CustomCard title="Search" />
         </Grid>
         <Grid item xs={12} md={8}>
           <CustomCard title="Search location">
-            <CustomMap />
+            <CurrentLocal />
           </CustomCard>
         </Grid>
         <Grid item xs={12} md={4}>
