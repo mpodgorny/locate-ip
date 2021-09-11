@@ -40,13 +40,12 @@ export const fetchData = () => (dispatch: Dispatch) => {
   dispatch(loading(true));
   getCurrentLocation()
     .then(({ data }) => {
-      // dispatch(getData(res));
+      dispatch(getData(data));
     })
     .catch(() => {
-      // dispatch(error(true));
+      dispatch(error(true));
     })
     .finally(() => {
-      dispatch(getData(res));
       dispatch(loading(true));
     });
 };
