@@ -1,5 +1,6 @@
 //TODO: cleanup imports
 import React from 'react';
+import { SnackbarProvider } from 'notistack';
 import { createTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -16,12 +17,21 @@ const darkTheme: Theme = createTheme({
 });
 
 const App: React.FC = () => {
+
   return (
     <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <Box m={{ xs: 1, md: 3 }}>
-        <Layout />
-      </Box>
+      <SnackbarProvider
+        preventDuplicate
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <CssBaseline />
+        <Box m={{ xs: 1, md: 3 }}>
+          <Layout />
+        </Box>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 };
