@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import { latLongType } from 'features/CurrentLocalSlice';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 // fix for react-leaflet issue #453
 const DefaultIcon = L.icon({
@@ -19,7 +20,6 @@ const useStyles = makeStyles(() => ({
   mapWrapper: {
     width: '100%',
     height: 0,
-    paddingTop: '40%',
     position: 'relative',
   },
   mapContainer: {
@@ -29,12 +29,16 @@ const useStyles = makeStyles(() => ({
     top: 0,
     left: 0,
   },
+  skeleton: {
+    zIndex: 999,
+  },
 }));
 
 type CustomMapProps = { latLong: latLongType };
 
 const CustomMap: React.FC<CustomMapProps> = ({ latLong }) => {
   const [mapInstance, setMapInstance] = useState<Map | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const classes = useStyles();
 
   useEffect(() => {
@@ -49,12 +53,23 @@ const CustomMap: React.FC<CustomMapProps> = ({ latLong }) => {
     }
   }, [latLong, mapInstance]);
 
+  const whenReady = () => {
+    setLoading(false);
+  };
+
   return (
-    <div className={classes.mapWrapper}>
+    <>
+      {loading && (
+        <Skeleton
+          variant="rect"
+          className={`${classes.mapContainer} ${classes.skeleton}`}
+        />
+      )}
       <MapContainer
-        center={[51.505, -0.09]}
+        center={[34.102385, -79.155351]}
         whenCreated={setMapInstance}
-        zoom={13}
+        zoom={16}
+        whenReady={whenReady}
         className={classes.mapContainer}
       >
         <TileLayer
@@ -63,7 +78,7 @@ const CustomMap: React.FC<CustomMapProps> = ({ latLong }) => {
         />
         {latLong && <Marker position={latLong} />}
       </MapContainer>
-    </div>
+    </>
   );
 };
 
