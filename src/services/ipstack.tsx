@@ -8,7 +8,11 @@ const api: AxiosInstance = axios.create({
 });
 
 const getCurrentLocation = (): Promise<Record<string, any>> => {
-  return api.get('check/', { timeout: 2 });
+  return api.get('check/');
 };
 
-export { getCurrentLocation };
+const getSearch = (query: string): Promise<Record<string, any>> => {
+  return api.get(query, { params: { query } });
+};
+
+export { getCurrentLocation, getSearch };
