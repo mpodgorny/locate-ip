@@ -7,7 +7,7 @@ export type getDataType = {
 };
 
 const api: AxiosInstance = axios.create({
-  baseURL: 'http://api.ipstack.com/',
+  baseURL: 'http://cors-anywhere-fork.herokuapp.com/http://api.ipstack.com/',
   params: {
     access_key: '96bc7384404d1f6616513ac28fb5f289',
   },
