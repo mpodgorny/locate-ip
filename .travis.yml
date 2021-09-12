@@ -11,8 +11,8 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $PERSONAL_TOKEN
-  keep_history: true
-  local_dir: dist
+  local_dir: build
+  target_branch: prod
   on:
     branch: prod
 
