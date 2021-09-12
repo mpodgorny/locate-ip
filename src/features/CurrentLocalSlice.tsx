@@ -1,11 +1,11 @@
-import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit';
-import { getCurrentLocation } from 'services/ipstack';
-import { RootState } from 'containers/store';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getCurrentLocation, getDataType } from 'services/ipstack';
+import { RootState, AppDispatch } from 'containers/store';
 
 export type latLongType = [number, number] | null;
 
 type CurrentLocal = {
-  data: null | Record<string, any>;
+  data: null | Record<string, unknown>;
   loading: boolean;
   error: boolean;
   latLong: latLongType;
@@ -28,31 +28,36 @@ export const currentLocalSclice = createSlice({
     loading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
-    getData: (state, action: PayloadAction<Record<string, any>>) => {
+    getData: (state, action: PayloadAction<getDataType>) => {
       state.data = action.payload;
       state.latLong = [action.payload.latitude, action.payload.longitude];
     },
   },
 });
-
-export const fetchData = () => (dispatch: Dispatch) => {
-  dispatch(loading(true));
-  getCurrentLocation()
-    .then(({ data }) => {
-      dispatch(getData(data));
-    })
-    .catch(() => {
-      dispatch(error(true));
-    })
-    .finally(() => {
-      dispatch(loading(true));
-    });
-};
+export const fetchData =
+  () =>
+  (dispatch: AppDispatch): void => {
+    dispatch(loading(true));
+    getCurrentLocation()
+      .then(({ data }) => {
+        dispatch(getData(data));
+      })
+      .catch(() => {
+        dispatch(error(true));
+      })
+      .finally(() => {
+        dispatch(loading(true));
+      });
+  };
 
 export const { error, loading, getData } = currentLocalSclice.actions;
-export const selectError = (state: RootState) => state.currentLocal.error;
-export const selectLoading = (state: RootState) => state.currentLocal.loading;
-export const selectData = (state: RootState) => state.currentLocal.data;
-export const selectLatLong = (state: RootState) => state.currentLocal.latLong;
+export const selectError = (state: RootState): boolean =>
+  state.currentLocal.error;
+export const selectLoading = (state: RootState): boolean =>
+  state.currentLocal.loading;
+export const selectData = (state: RootState): Record<string, unknown> | null =>
+  state.currentLocal.data;
+export const selectLatLong = (state: RootState): latLongType =>
+  state.currentLocal.latLong;
 
 export default currentLocalSclice.reducer;
