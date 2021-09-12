@@ -2,7 +2,6 @@ import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit';
 import { getSearch } from 'services/ipstack';
 import { RootState } from 'containers/store';
 import { latLongType } from './CurrentLocalSlice';
-import res from 'services/apiResponse.json';
 
 type CurrentLocal = {
   data: null | Record<string, any>;
@@ -54,7 +53,7 @@ export const searchData = (query: string) => (dispatch: Dispatch) => {
       } else {
         dispatch(getData(data));
       }
-      dispatch(addSearched({ data: res, query, isError: isError }));
+      dispatch(addSearched({ data, query, isError: isError }));
     })
     .catch(() => {
       dispatch(error(true));

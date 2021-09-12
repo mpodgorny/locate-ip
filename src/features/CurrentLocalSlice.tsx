@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit';
 import { getCurrentLocation } from 'services/ipstack';
 import { RootState } from 'containers/store';
-import res from 'services/apiResponse.json';
 
 export type latLongType = [number, number] | null;
 
