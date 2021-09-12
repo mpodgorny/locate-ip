@@ -15,13 +15,11 @@ const CurrentSearched: React.FC = () => {
 
   useEffect(() => {
     if (isError) {
-      enqueueSnackbar('Error', { variant: 'error' });
+      enqueueSnackbar('Value you provided could not be found', {
+        variant: 'error',
+      });
     }
   }, [isError]);
-
-  useEffect(() => {
-    enqueueSnackbar('Error', { variant: 'error' });
-  }, []);
 
   return (
     <>
