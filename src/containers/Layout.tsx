@@ -36,7 +36,7 @@ const Layout: React.FC = () => {
       </Grid>
       <Grid container item xs={12} md={9} className={classes.container}>
         <Grid item xs={12} md={8} className={classes.grid}>
-          <CustomCard title="Your current location">
+          <CustomCard isMapPreview title="Your current location">
             <CurrentMap />
           </CustomCard>
         </Grid>
@@ -51,7 +51,7 @@ const Layout: React.FC = () => {
           </CustomCard>
         </Grid>
         <Grid item xs={12} md={8} className={classes.grid}>
-          <CustomCard title="Search location">
+          <CustomCard isMapPreview title="Search location">
             <SearchedMap />
           </CustomCard>
         </Grid>
