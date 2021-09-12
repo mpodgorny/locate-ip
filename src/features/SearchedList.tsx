@@ -16,6 +16,7 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 const useStyles = makeStyles(() => ({
+  tableContainer: { height: '98%' },
   success: { color: 'green' },
   error: { color: 'red' },
 }));
@@ -24,7 +25,7 @@ const SearchedList: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} className={classes.tableContainer}>
       <Table>
         <caption>{searchedList.length} searches</caption>
         <TableHead>
