@@ -8,6 +8,7 @@ import {
   TableBody,
   Paper,
   makeStyles,
+  Tooltip,
 } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { selectList } from 'features/SearchSlice';
@@ -15,6 +16,7 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 const useStyles = makeStyles(() => ({
+  tableContainer: { height: '98%' },
   success: { color: 'green' },
   error: { color: 'red' },
 }));
@@ -23,14 +25,13 @@ const SearchedList: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} className={classes.tableContainer}>
       <Table>
         <caption>{searchedList.length} searches</caption>
         <TableHead>
           <TableRow>
-            <TableCell style={{ width: '70%' }}>Query</TableCell>
+            <TableCell style={{ width: '85%' }}>Query</TableCell>
             <TableCell style={{ width: '15%' }}>Status</TableCell>
-            <TableCell style={{ width: '15%' }}>Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -46,12 +47,15 @@ const SearchedList: React.FC = () => {
               </TableCell>
               <TableCell component="th" scope="row">
                 {query.isError ? (
-                  <ErrorOutlineIcon className={classes.error} />
+                  <Tooltip title="Search failed">
+                    <ErrorOutlineIcon className={classes.error} />
+                  </Tooltip>
                 ) : (
-                  <CheckCircleOutlineIcon className={classes.success} />
+                  <Tooltip title="Search successful">
+                    <CheckCircleOutlineIcon className={classes.success} />
+                  </Tooltip>
                 )}
               </TableCell>
-              <TableCell>will be action</TableCell>
             </TableRow>
           ))}
         </TableBody>

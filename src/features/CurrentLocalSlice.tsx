@@ -40,7 +40,11 @@ export const fetchData =
     dispatch(loading(true));
     getCurrentLocation()
       .then(({ data }) => {
-        dispatch(getData(data));
+        if (Object.prototype.hasOwnProperty.call(data, 'error')) {
+          dispatch(error(true));
+        } else {
+          dispatch(getData(data));
+        }
       })
       .catch(() => {
         dispatch(error(true));

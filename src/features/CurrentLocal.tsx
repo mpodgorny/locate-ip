@@ -4,12 +4,13 @@ import {
   fetchData,
   selectData,
   selectLoading,
+  selectError,
 } from 'features/CurrentLocalSlice';
 import { Backdrop, makeStyles, Divider } from '@material-ui/core';
 import TextRow from 'components/TextRow';
 import { Skeleton } from '@material-ui/lab';
 import { keys } from 'helpers/constants';
-
+import { useSnackbar } from 'notistack';
 const useStyles = makeStyles(() => ({
   skeleton: { transform: 'none', height: '85%' },
 }));
@@ -18,11 +19,18 @@ const CurrentLocal: React.FC = () => {
   const dispatch = useDispatch();
   const data = useSelector(selectData);
   const loading = useSelector(selectLoading);
+  const isError = useSelector(selectError);
   const classes = useStyles();
-
+  const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     dispatch(fetchData());
   }, []);
+
+  useEffect(() => {
+    if (isError) {
+      enqueueSnackbar('Service is currently unavailable', { variant: 'error' });
+    }
+  }, [isError]);
 
   return data ? (
     <>
