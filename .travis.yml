@@ -7,15 +7,6 @@ cache:
 script:
   - yarn install
 
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $PERSONAL_TOKEN
-  local_dir: build
-  target_branch: prod
-  on:
-    branch: prod
-
 jobs:
   include:
     - stage: test
@@ -23,6 +14,11 @@ jobs:
 
     - stage: deploy
       script: yarn run build
+      provider: pages
+      skip_cleanup: true
+      github_token: $PERSONAL_TOKEN
+      local_dir: build
+      target_branch: prod
       if: branch = prod
 
 
