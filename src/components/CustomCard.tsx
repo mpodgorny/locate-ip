@@ -6,6 +6,7 @@ type CustomCardProps = {
   disableMargin?: boolean;
   children?: JSX.Element;
   subheader?: string;
+  isMapPreview?: boolean;
 };
 
 const useStyles = makeStyles(() => ({
@@ -15,6 +16,10 @@ const useStyles = makeStyles(() => ({
   },
   content: {
     height: '100%',
+    overflow: 'auto',
+  },
+  asMapPreview: {
+    position: 'relative',
   },
 }));
 
@@ -22,6 +27,7 @@ const CustomCard: React.FC<CustomCardProps> = ({
   title = '',
   subheader = '',
   disableMargin = false,
+  isMapPreview = false,
   children,
 }) => {
   const classes = useStyles();
@@ -32,11 +38,18 @@ const CustomCard: React.FC<CustomCardProps> = ({
           <CardHeader
             className={classes.header}
             title={title}
-            titleTypographyProps={{ variant: 'subtitle2' }}
+            titleTypographyProps={{ variant: 'h6', color: 'textSecondary' }}
             subheader={subheader}
           />
         )}
-        <Box p={1} height="100%" width="100%">
+        <Box
+          p={isMapPreview ? 0 : 1}
+          className={`${isMapPreview ? classes.asMapPreview : ''} ${
+            classes.content
+          }`}
+          height="100%"
+          width="100%"
+        >
           {children}
         </Box>
       </Card>
