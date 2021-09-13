@@ -5,5 +5,5 @@ export const keys = [
   'region_name',
   'city',
   'zip',
+  'continent_name',
 ];
-
